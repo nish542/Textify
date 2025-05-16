@@ -101,21 +101,21 @@ export default function TextSpace(props) {
           onChange={handleOnChange}
           placeholder="Enter your text here..."
           style={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            backgroundColor: props.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.7)',
             border: '2px solid rgba(233, 236, 239, 0.5)',
             borderRadius: '10px',
             transition: 'all 0.3s ease',
-            color: 'black',
+            color: props.mode === 'dark' ? 'white' : 'black',
             backdropFilter: 'blur(5px)'
           }}
         />
       </div>
 
       {/* Action Buttons */}
-      <div className="mb-4 text-center">
-        <div className="btn-group" role="group">
+      <div className="mb-4">
+        <div className="d-flex flex-wrap justify-content-center gap-2">
           <button 
-            className="btn btn-primary mx-1" 
+            className="btn btn-primary" 
             disabled={!text} 
             onClick={handleUpClick}
             style={{ transition: 'all 0.3s ease' }}
@@ -123,7 +123,7 @@ export default function TextSpace(props) {
             <i className="fas fa-arrow-up me-1"></i> Uppercase
           </button>
           <button 
-            className="btn btn-primary mx-1" 
+            className="btn btn-primary" 
             disabled={!text} 
             onClick={handleLoClick}
             style={{ transition: 'all 0.3s ease' }}
@@ -131,7 +131,7 @@ export default function TextSpace(props) {
             <i className="fas fa-arrow-down me-1"></i> Lowercase
           </button>
           <button 
-            className="btn btn-secondary mx-1" 
+            className="btn btn-secondary" 
             disabled={!text} 
             onClick={handleSpace}
             style={{ transition: 'all 0.3s ease' }}
@@ -139,7 +139,7 @@ export default function TextSpace(props) {
             <i className="fas fa-compress-alt me-1"></i> Remove Spaces
           </button>
           <button 
-            className="btn btn-secondary mx-1" 
+            className="btn btn-secondary" 
             disabled={!text} 
             onClick={handleClear}
             style={{ transition: 'all 0.3s ease' }}
@@ -147,7 +147,7 @@ export default function TextSpace(props) {
             <i className="fas fa-trash me-1"></i> Clear
           </button>
           <button 
-            className="btn btn-success mx-1" 
+            className="btn btn-success" 
             disabled={!text || loading} 
             onClick={correctGrammar}
             style={{ transition: 'all 0.3s ease' }}
@@ -160,19 +160,19 @@ export default function TextSpace(props) {
 
       {/* Translation Dropdown */}
       <div className="mb-4">
-        <div className="row align-items-center">
-          <div className="col-md-6">
+        <div className="row g-3 align-items-center">
+          <div className="col-12 col-md-6">
             <label className="form-label fw-bold">Select language to translate:</label>
             <select
               className="form-select"
               value={toLang}
               onChange={(e) => setToLang(e.target.value)}
               style={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                backgroundColor: props.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.7)',
                 border: '2px solid rgba(233, 236, 239, 0.5)',
                 borderRadius: '10px',
                 transition: 'all 0.3s ease',
-                color: 'black',
+                color: props.mode === 'dark' ? 'white' : 'black',
                 backdropFilter: 'blur(5px)'
               }}
             >
@@ -181,9 +181,9 @@ export default function TextSpace(props) {
               ))}
             </select>
           </div>
-          <div className="col-md-6 text-md-end mt-3 mt-md-0">
+          <div className="col-12 col-md-6 text-md-end">
             <button 
-              className="btn btn-info" 
+              className="btn btn-info w-100 w-md-auto" 
               disabled={!text || translating} 
               onClick={handleTranslate}
               style={{ 
@@ -199,9 +199,9 @@ export default function TextSpace(props) {
       </div>
 
       {/* Results Container */}
-      <div className="row mt-4 g-4">
+      <div className="row g-4">
         {/* Original Text Section */}
-        <div className="col-md-6">
+        <div className="col-12 col-md-6">
           <div className="card h-100 shadow-lg border-0">
             <div className="card-header bg-primary text-white py-3">
               <h4 className="mb-0">
@@ -228,7 +228,7 @@ export default function TextSpace(props) {
         </div>
 
         {/* Translation Section */}
-        <div className="col-md-6">
+        <div className="col-12 col-md-6">
           {translatedText && (
             <div className="card h-100 shadow-lg border-0">
               <div className="card-header bg-info text-white py-3">
@@ -265,15 +265,15 @@ export default function TextSpace(props) {
                 </h4>
               </div>
               <div className="card-body">
-                <div className="row">
-                  <div className="col-md-6">
+                <div className="row g-4">
+                  <div className="col-12 col-md-6">
                     <h5 className="text-muted mb-3">
                       <i className="fas fa-file-alt me-2"></i>
                       Original Text
                     </h5>
                     <p className="card-text" style={{ minHeight: '100px' }}>{text}</p>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-12 col-md-6">
                     <h5 className="text-muted mb-3">
                       <i className="fas fa-check-circle me-2"></i>
                       Corrected Text
@@ -281,10 +281,11 @@ export default function TextSpace(props) {
                     <p className="card-text" style={{ 
                       minHeight: '100px',
                       whiteSpace: 'pre-wrap',
-                      backgroundColor: 'rgba(248, 249, 250, 0.1)',
+                      backgroundColor: props.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(248, 249, 250, 0.1)',
                       padding: '15px',
                       borderRadius: '10px',
-                      backdropFilter: 'blur(5px)'
+                      backdropFilter: 'blur(5px)',
+                      color: props.mode === 'dark' ? 'white' : 'black'
                     }}>{correctedText}</p>
                   </div>
                 </div>
